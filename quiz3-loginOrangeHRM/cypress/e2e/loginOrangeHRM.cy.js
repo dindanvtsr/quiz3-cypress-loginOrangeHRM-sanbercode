@@ -73,4 +73,24 @@ describe('Login', () => {
         cy.get('button[type="submit"]').should('be.visible').click()
         cy.xpath('//span[contains(@class, "oxd-input-field-error-message")]').should('contain', 'Required')
     })
+    it('TCL_008', () => {
+        cy.xpath('//input[@placeholder="Username"]').should('be.visible').clear().type('ADMIN')
+        cy.xpath('//input[@placeholder="Username"]').should('have.value', 'ADMIN')
+
+        cy.xpath('//input[@placeholder="Password"]').should('be.visible').clear().type('admin123')
+        cy.xpath('//input[@placeholder="Password"]').should('have.value', 'admin123')
+
+        cy.get('button[type="submit"]').should('be.visible').click()
+        cy.xpath('//p[contains(@class, "oxd-alert-content-text")]').should('contain', 'Invalid credentials')
+    })
+    it('TCL_009', () => {
+        cy.xpath('//input[@placeholder="Username"]').should('be.visible').clear().type('Admin')
+        cy.xpath('//input[@placeholder="Username"]').should('have.value', 'Admin')
+
+        cy.xpath('//input[@placeholder="Password"]').should('be.visible').clear().type('ADMIN123')
+        cy.xpath('//input[@placeholder="Password"]').should('have.value', 'ADMIN123')
+
+        cy.get('button[type="submit"]').should('be.visible').click()
+        cy.xpath('//p[contains(@class, "oxd-alert-content-text")]').should('contain', 'Invalid credentials')
+    })
 })
